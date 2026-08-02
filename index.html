@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f0e7" />
+    <title>一念签｜今日不问吉凶，只照见当下</title>
+    <meta
+      name="description"
+      content="一念签：借一签，照一心。今日不问吉凶，只照见当下。"
+    />
+    <style>
+      :root {
+        --paper: #eee7db;
+        --paper-deep: #ddd0bd;
+        --card: rgba(250, 247, 240, 0.78);
+        --ink: #211f1b;
+        --muted: #6c6459;
+        --faint: #9e9484;
+        --cinnabar: #98362e;
+        --cinnabar-soft: rgba(152, 54, 46, 0.1);
+        --gold: #c1a06b;
+        --line: rgba(38, 34, 27, 0.16);
+        --serif: "Noto Serif SC", "Songti SC", "STSong", serif;
+        --sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+        --ease: cubic-bezier(0.2, 0.75, 0.2, 1);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 80% 12%, rgba(193, 160, 107, 0.18), transparent 30rem),
+          radial-gradient(circle at 10% 77%, rgba(152, 54, 46, 0.07), transparent 25rem),
+          linear-gradient(110deg, rgba(255,255,255,0.18), transparent 40%),
+          var(--paper);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        content: "";
+        opacity: 0.3;
+        background-image:
+          repeating-linear-gradient(0deg, rgba(92, 73, 43, 0.018) 0, rgba(92, 73, 43, 0.018) 1px, transparent 1px, transparent 5px),
+          repeating-linear-gradient(90deg, rgba(92, 73, 43, 0.012) 0, rgba(92, 73, 43, 0.012) 1px, transparent 1px, transparent 7px);
+        mix-blend-mode: multiply;
+      }
+      button { font: inherit; }
+
+      .site-shell { width: min(1280px, calc(100% - 64px)); margin: 0 auto; }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 30px 0 23px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+      .brand-mark {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        color: var(--paper);
+        background: var(--cinnabar);
+        border-radius: 2px;
+        font-family: var(--serif);
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        box-shadow: 4px 4px 0 rgba(152, 54, 46, 0.17);
+      }
+      .brand-name { font-family: var(--serif); font-size: 19px; letter-spacing: 0.2em; }
+      .top-meta { display: flex; align-items: center; gap: 22px; }
+      .top-chapter { color: var(--cinnabar); font-family: var(--serif); font-size: 12px; letter-spacing: 0.14em; }
+      .top-note { color: var(--muted); font-size: 10px; letter-spacing: 0.2em; }
+
+      .hero {
+        display: grid;
+        position: relative;
+        grid-template-columns: 0.9fr 1.1fr;
+        align-items: center;
+        gap: clamp(55px, 8vw, 145px);
+        min-height: 710px;
+        padding: 92px 0 108px;
+      }
+      .hero::before { position: absolute; right: -30px; bottom: 0; color: rgba(152, 54, 46, 0.045); content: "觀"; font-family: var(--serif); font-size: clamp(210px, 26vw, 370px); line-height: 0.8; pointer-events: none; }
+      .hero-copy { position: relative; z-index: 1; max-width: 570px; }
+      .eyebrow { display: inline-flex; align-items: center; gap: 12px; color: var(--cinnabar); font-size: 11px; font-weight: 600; letter-spacing: 0.3em; }
+      .eyebrow::before { width: 34px; height: 1px; background: var(--cinnabar); content: ""; }
+      h1 {
+        margin: 31px 0 27px;
+        font-family: var(--serif);
+        font-size: clamp(55px, 7vw, 96px);
+        font-weight: 500;
+        line-height: 1.04;
+        letter-spacing: 0.02em;
+      }
+      h1 span { display: block; color: var(--cinnabar); }
+      .hero-desc { max-width: 438px; margin: 0; color: var(--muted); font-family: var(--serif); font-size: 17px; line-height: 2.05; }
+      .hero-rule { width: 132px; height: 1px; margin: 35px 0 20px; background: linear-gradient(90deg, var(--cinnabar), transparent); }
+      .hero-aside { color: var(--muted); font-size: 11px; letter-spacing: 0.08em; }
+      .hero-index { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 470px; margin-top: 42px; border-top: 1px solid var(--line); }
+      .hero-index-item { padding: 14px 15px 0 0; border-right: 1px solid var(--line); }
+      .hero-index-item + .hero-index-item { padding-left: 15px; }
+      .hero-index-item:last-child { border-right: 0; }
+      .hero-index-item small { display: block; color: var(--faint); font-size: 10px; letter-spacing: 0.16em; }
+      .hero-index-item strong { display: block; margin-top: 8px; color: var(--ink); font-family: var(--serif); font-size: 15px; font-weight: 500; letter-spacing: 0.1em; }
+      .hero-phrase { display: flex; gap: 19px; margin-top: 28px; color: var(--cinnabar); font-family: var(--serif); font-size: 12px; letter-spacing: 0.16em; }
+      .hero-phrase span + span { padding-left: 19px; border-left: 1px solid rgba(152, 54, 46, 0.32); }
+
+      .draw-stage {
+        position: relative;
+        min-height: 455px;
+        padding: 46px 42px 38px;
+        overflow: hidden;
+        background:
+          linear-gradient(135deg, rgba(41, 37, 31, 0.98), rgba(59, 45, 35, 0.98)),
+          #2d2923;
+        border: 1px solid rgba(193, 160, 107, 0.55);
+        border-radius: 2px;
+        box-shadow: 0 34px 90px rgba(54, 39, 23, 0.29), 0 0 0 6px rgba(193, 160, 107, 0.07);
+      }
+      .draw-stage::before, .draw-stage::after { position: absolute; content: ""; pointer-events: none; }
+      .draw-stage::before { inset: 12px; border: 1px solid rgba(193, 160, 107, 0.3); box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.15); }
+      .draw-stage::after { top: -90px; right: -50px; width: 250px; height: 250px; border: 1px solid rgba(193, 160, 107, 0.18); border-radius: 50%; }
+      .draw-stage .stage-heading::after { position: absolute; right: 0; bottom: -12px; width: 47px; height: 1px; background: var(--cinnabar); content: ""; }
+      .stage-heading { position: relative; display: flex; justify-content: space-between; align-items: start; z-index: 1; }
+      .stage-label { color: #dfb979; font-family: var(--serif); font-size: 13px; letter-spacing: 0.26em; }
+      .stage-subtitle { display: block; margin-top: 6px; color: rgba(238, 231, 219, 0.55); font-size: 10px; letter-spacing: 0.1em; }
+      .stage-date { color: #dfc28e; font-size: 11px; letter-spacing: 0.12em; }
+      .ritual-steps { position: relative; z-index: 1; display: flex; gap: 16px; margin-top: 27px; padding-top: 14px; border-top: 1px solid rgba(193, 160, 107, 0.2); }
+      .ritual-step { display: flex; align-items: center; gap: 7px; color: rgba(238, 231, 219, 0.42); font-size: 9px; letter-spacing: 0.12em; transition: color 220ms ease; }
+      .ritual-step b { color: rgba(193, 160, 107, 0.45); font-family: Georgia, serif; font-size: 12px; font-weight: 400; }
+      .ritual-step.is-active { color: #e0bd82; }
+      .ritual-step.is-active b { color: #e0bd82; }
+      .ritual-step.is-done { color: rgba(238, 231, 219, 0.68); }
+      .ritual-step.is-done b { color: #a9c39a; }
+      .day-sign-layout { position: relative; z-index: 1; display: grid; grid-template-columns: 0.8fr 1.2fr; align-items: center; gap: 12px; min-height: 285px; margin: 13px -5px 4px; padding: 0 6px; }
+      .day-panel { min-height: 240px; padding: 26px 16px 18px; border-right: 1px solid rgba(193, 160, 107, 0.35); text-align: center; }
+      .day-kicker { color: #dfb979; font-family: var(--serif); font-size: 11px; letter-spacing: 0.28em; }
+      .today-large { margin-top: 13px; color: var(--paper); font-family: var(--serif); font-size: clamp(29px, 3vw, 39px); letter-spacing: 0.05em; white-space: nowrap; }
+      .weekday { margin-top: 8px; color: rgba(238, 231, 219, 0.62); font-family: var(--serif); font-size: 13px; letter-spacing: 0.2em; }
+      .day-rule { width: 46px; height: 1px; margin: 18px auto 15px; background: linear-gradient(90deg, transparent, #c1a06b, transparent); }
+      .season-mini { color: #dfab75; font-family: var(--serif); font-size: 14px; letter-spacing: 0.1em; }
+      .lunar-mini { margin-top: 7px; color: rgba(238, 231, 219, 0.47); font-size: 10px; letter-spacing: 0.08em; }
+      .day-tags { display: flex; justify-content: center; gap: 6px; margin-top: 17px; }
+      .day-tag { padding: 5px 7px; color: rgba(238, 231, 219, 0.68); border: 1px solid rgba(193, 160, 107, 0.4); font-family: var(--serif); font-size: 10px; }
+      .day-tag:first-child { color: #b4c5a7; border-color: rgba(157, 187, 139, 0.44); }
+      .sign-side { min-width: 0; }
+      .sign-orbit { position: relative; display: grid; min-height: 257px; place-items: center; }
+      .orbit-line { position: absolute; width: 205px; height: 205px; border: 1px solid rgba(193, 160, 107, 0.38); border-radius: 50%; }
+      .orbit-line::before, .orbit-line::after { position: absolute; content: ""; background: var(--gold); }
+      .orbit-line::before { top: 50%; left: -5px; width: 9px; height: 1px; }
+      .orbit-line::after { top: -5px; left: 50%; width: 1px; height: 9px; }
+      .sign-tube { position: relative; display: grid; width: 70px; height: 171px; place-items: center; color: var(--paper); background: linear-gradient(90deg, #6e2722, var(--cinnabar), #6e2722); border-radius: 7px 7px 13px 13px; box-shadow: 10px 19px 25px rgba(65, 29, 25, 0.15); cursor: grab; touch-action: none; transform: rotate(-6deg); transition: transform 700ms var(--ease); }
+      .sign-tube::before { position: absolute; top: -8px; width: 76px; height: 16px; content: ""; background: #a54a3d; border-radius: 50%; box-shadow: inset 0 -3px 0 rgba(72, 20, 15, 0.22); }
+      .sign-tube::after { position: absolute; bottom: 17px; width: 42px; height: 1px; content: ""; background: rgba(250, 241, 218, 0.55); box-shadow: 0 8px 0 rgba(250, 241, 218, 0.24); }
+      .sign-tube span { writing-mode: vertical-rl; font-family: var(--serif); font-size: 20px; letter-spacing: 0.24em; }
+      .draw-stage.is-shaking .sign-tube { animation: ritual-shake 700ms var(--ease); }
+      @keyframes ritual-shake { 0%, 100% { transform: rotate(-6deg); } 25% { transform: rotate(7deg) translateX(7px); } 50% { transform: rotate(-10deg) translateX(-8px); } 75% { transform: rotate(5deg) translateX(5px); } }
+      .draw-prompt { position: relative; z-index: 1; margin: -1px 0 20px; text-align: center; color: rgba(238, 231, 219, 0.7); font-family: var(--serif); font-size: 12px; letter-spacing: 0.12em; }
+      .draw-button { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 52px; color: var(--paper); background: var(--cinnabar); border: 0; border-radius: 2px; cursor: pointer; font-family: var(--serif); font-size: 15px; letter-spacing: 0.22em; box-shadow: 0 12px 26px rgba(138, 49, 42, 0.2); transition: transform 180ms ease, background 180ms ease; }
+      .draw-button:hover { background: #76251f; transform: translateY(-2px); }
+      .draw-button:active { transform: translateY(1px); }
+      .draw-button:focus-visible { outline: 3px solid rgba(180, 153, 107, 0.45); outline-offset: 4px; }
+      .button-dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; }
+
+      .principles { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(35px, 8vw, 130px); padding: 0 0 105px; border-top: 1px solid var(--line); }
+      .principles-intro { padding-top: 29px; }
+      .principles-kicker { color: var(--cinnabar); font-size: 10px; letter-spacing: 0.24em; }
+      .principles-intro h2 { max-width: 260px; margin: 19px 0 0; font-family: var(--serif); font-size: 28px; font-weight: 500; line-height: 1.55; letter-spacing: 0.08em; }
+      .principles-list { display: grid; grid-template-columns: repeat(3, 1fr); }
+      .principle { min-height: 170px; padding: 29px 20px 0; border-left: 1px solid var(--line); }
+      .principle-number { color: var(--gold); font-family: Georgia, serif; font-size: 14px; letter-spacing: 0.12em; }
+      .principle h3 { margin: 23px 0 10px; font-family: var(--serif); font-size: 17px; font-weight: 500; letter-spacing: 0.12em; }
+      .principle p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.9; }
+
+      .result-wrap { display: none; padding: 0 0 112px; }
+      .result-wrap.is-visible { display: block; animation: reveal 850ms var(--ease) both; }
+      .result-wrap.is-refreshing .result-card { opacity: 0.52; transform: translateY(4px); transition: opacity 180ms ease, transform 180ms ease; }
+      @keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+      .result-card { overflow: hidden; background: rgba(250, 247, 240, 0.9); border: 1px solid rgba(180, 153, 107, 0.45); box-shadow: 0 24px 70px rgba(71, 54, 28, 0.1); }
+      .result-banner { display: flex; align-items: center; justify-content: space-between; min-height: 68px; padding: 0 clamp(22px, 5vw, 58px); color: var(--paper); background: linear-gradient(90deg, #76251f, var(--cinnabar), #9c3b31); box-shadow: inset 0 -4px 0 rgba(63, 20, 17, 0.18); }
+      .result-banner-left { display: flex; align-items: baseline; gap: 19px; }
+      .result-banner-brand { font-family: var(--serif); font-size: 18px; letter-spacing: 0.22em; }
+      .result-banner-note { color: rgba(244, 240, 231, 0.68); font-size: 10px; letter-spacing: 0.22em; }
+      .result-index { color: rgba(244, 240, 231, 0.9); font-family: var(--serif); font-size: 13px; letter-spacing: 0.18em; }
+      .result-paper { position: relative; padding: 36px clamp(22px, 6vw, 74px) 40px; }
+      .result-paper::before { position: absolute; inset: 16px; border: 1px solid rgba(180, 153, 107, 0.25); pointer-events: none; content: ""; }
+      .result-head, .focus-grid, .guide-heading, .result-grid, .action-line, .result-footnote { position: relative; z-index: 1; }
+      .result-head { display: grid; grid-template-columns: 0.8fr 1.4fr 0.8fr; align-items: center; gap: 24px; padding: 0 0 28px; border-bottom: 1px solid rgba(180, 153, 107, 0.35); }
+      .result-season { color: var(--muted); font-size: 11px; letter-spacing: 0.14em; line-height: 1.8; }
+      .result-season strong { display: block; margin-top: 5px; color: var(--cinnabar); font-family: var(--serif); font-size: 16px; font-weight: 500; letter-spacing: 0.08em; }
+      .result-title-wrap { text-align: center; }
+      .result-small { display: block; color: var(--gold); font-size: 10px; letter-spacing: 0.28em; }
+      .result-title { margin-top: 12px; font-family: var(--serif); font-size: clamp(31px, 4vw, 48px); font-weight: 500; letter-spacing: 0.08em; }
+      .result-source-mini { text-align: right; color: var(--muted); font-size: 11px; line-height: 1.8; }
+      .result-source-mini strong { display: block; margin-top: 5px; color: var(--cinnabar); font-family: var(--serif); font-size: 15px; font-weight: 500; }
+      .focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 26px; }
+      .focus-panel { min-height: 184px; padding: 22px 24px; border: 1px solid rgba(180, 153, 107, 0.35); background: rgba(255, 252, 245, 0.58); }
+      .focus-panel.is-source { border-top: 3px solid var(--gold); }
+      .focus-panel.is-observe { border-top: 3px solid var(--cinnabar); background: rgba(138, 49, 42, 0.045); }
+      .section-label { display: flex; align-items: center; gap: 9px; color: var(--cinnabar); font-family: var(--serif); font-size: 17px; letter-spacing: 0.12em; }
+      .section-label::before { display: block; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; content: ""; }
+      .focus-panel.is-observe .section-label::before { background: var(--cinnabar); }
+      .source-name { display: block; margin: 15px 0 10px; color: var(--gold); font-family: var(--serif); font-size: 13px; letter-spacing: 0.12em; }
+      .source-box p { margin: 0; color: var(--muted); font-family: var(--serif); font-size: 14px; line-height: 1.9; }
+      .result-conclusion { margin: 17px 0 0; color: var(--ink); font-family: var(--serif); font-size: 17px; line-height: 1.9; }
+      .guide-heading { display: flex; align-items: center; gap: 14px; margin: 31px 0 15px; color: var(--ink); font-family: var(--serif); font-size: 17px; letter-spacing: 0.14em; }
+      .guide-heading::after { flex: 1; height: 1px; background: rgba(180, 153, 107, 0.35); content: ""; }
+      .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .result-chip { min-height: 112px; padding: 19px 21px; border: 1px solid var(--line); }
+      .result-chip.is-good { border-color: rgba(94, 119, 92, 0.3); background: rgba(94, 119, 92, 0.07); }
+      .result-chip.is-caution { border-color: rgba(138, 49, 42, 0.3); background: var(--cinnabar-soft); }
+      .chip-label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--ink); font-family: var(--serif); font-size: 16px; letter-spacing: 0.14em; }
+      .chip-label::before { display: grid; width: 23px; height: 23px; place-items: center; color: var(--paper); background: #637761; border-radius: 50%; content: "宜"; font-size: 12px; }
+      .result-chip.is-caution .chip-label::before { background: var(--cinnabar); content: "忌"; }
+      .chip-text { display: block; color: var(--muted); font-family: var(--serif); font-size: 14px; line-height: 1.7; }
+      .action-line { display: flex; gap: 14px; align-items: start; margin-top: 20px; padding: 19px 21px; border: 1px solid rgba(180, 153, 107, 0.4); background: rgba(180, 153, 107, 0.08); }
+      .action-mark { flex: 0 0 auto; width: 32px; height: 32px; border: 1px solid var(--gold); color: var(--cinnabar); background: rgba(250, 247, 240, 0.72); display: grid; place-items: center; font-family: var(--serif); font-size: 14px; }
+      .action-line p { margin: 1px 0 0; color: var(--muted); font-family: var(--serif); font-size: 14px; line-height: 1.7; }
+      .action-line strong { color: var(--ink); font-size: 16px; font-weight: 500; letter-spacing: 0.12em; }
+      .result-footnote { margin: 21px 0 0; color: var(--faint); font-size: 11px; line-height: 1.7; }
+      .result-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+      .result-action-button { min-height: 42px; padding: 0 18px; border: 1px solid var(--cinnabar); color: var(--paper); background: var(--cinnabar); cursor: pointer; font-family: var(--serif); font-size: 13px; letter-spacing: 0.12em; transition: transform 180ms ease, background 180ms ease; }
+      .result-action-button:hover { background: #782a25; transform: translateY(-2px); }
+      .result-action-button.is-quiet { color: var(--cinnabar); background: transparent; border-color: rgba(152, 54, 46, 0.34); }
+      .history-panel { margin-top: 18px; padding: 20px 0 0; border-top: 1px solid rgba(152, 54, 46, 0.2); }
+      .history-heading { display: flex; align-items: baseline; justify-content: space-between; color: var(--cinnabar); font-family: var(--serif); font-size: 14px; letter-spacing: 0.14em; }
+      .history-count { color: var(--faint); font-family: var(--sans); font-size: 10px; letter-spacing: 0.08em; }
+      .history-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
+      .history-item { display: inline-flex; align-items: center; gap: 8px; min-height: 34px; padding: 0 11px; border: 1px solid rgba(180, 153, 107, 0.38); color: var(--muted); background: rgba(250, 247, 240, 0.45); cursor: pointer; font-family: var(--serif); font-size: 12px; transition: border-color 180ms ease, color 180ms ease; }
+      .history-item:hover { color: var(--cinnabar); border-color: var(--cinnabar); }
+      .history-item small { color: var(--gold); font-family: var(--sans); font-size: 9px; }
+
+      .site-footer { padding: 46px 0 38px; border-top: 1px solid var(--line); text-align: center; color: var(--faint); }
+      .footer-time { color: var(--muted); font-family: var(--serif); font-size: 13px; letter-spacing: 0.12em; }
+      .footer-title { margin-top: 23px; color: var(--ink); font-family: var(--serif); font-size: 15px; font-weight: 500; letter-spacing: 0.18em; }
+      .footer-note { max-width: 720px; margin: 13px auto 0; color: var(--faint); font-family: var(--serif); font-size: 12px; line-height: 1.9; }
+      .footer-credit { margin-top: 25px; color: var(--muted); font-family: var(--serif); font-size: 14px; letter-spacing: 0.12em; }
+      .footer-credit strong { color: var(--cinnabar); font-weight: 500; }
+      .footer-version { margin-top: 10px; color: var(--faint); font-size: 10px; letter-spacing: 0.22em; }
+      @media (max-width: 760px) {
+        .site-shell { width: min(100% - 28px, 580px); }
+        .topbar { padding: 20px 0; }
+        .top-note { display: none; }
+        .hero { display: block; min-height: 0; padding: 58px 0 64px; }
+        .hero-copy { text-align: center; }
+        h1 { margin-top: 22px; font-size: clamp(39px, 13vw, 60px); }
+        .hero-desc { margin: 0 auto; font-size: 15px; }
+        .hero-rule { margin: 25px auto 17px; }
+        .hero-index { margin: 36px auto 0; text-align: left; }
+        .hero-phrase { justify-content: center; }
+        .draw-stage { margin-top: 48px; min-height: 420px; padding: 34px 20px 26px; }
+        .ritual-steps { gap: 9px; }
+        .ritual-step { gap: 4px; font-size: 8px; letter-spacing: 0.04em; }
+        .day-sign-layout { grid-template-columns: 0.9fr 1.1fr; gap: 4px; min-height: 275px; margin-top: 10px; }
+        .day-panel { min-height: 226px; padding: 27px 8px 18px; }
+        .today-large { font-size: 29px; }
+        .day-tags { gap: 4px; }
+        .day-tag { padding: 5px 5px; font-size: 9px; }
+        .orbit-line { width: 178px; height: 178px; }
+        .sign-orbit { min-height: 244px; }
+        .result-banner { min-height: 60px; padding: 0 20px; }
+        .result-banner-left { gap: 11px; }
+        .result-banner-brand { font-size: 16px; }
+        .result-banner-note { display: none; }
+        .result-paper { padding: 30px 20px 28px; }
+        .result-paper::before { inset: 11px; }
+        .result-head { grid-template-columns: 1fr 1.3fr 1fr; gap: 9px; padding-bottom: 23px; }
+        .result-season, .result-source-mini { font-size: 9px; letter-spacing: 0.06em; }
+        .result-season strong, .result-source-mini strong { font-size: 12px; }
+        .result-title { margin-top: 9px; font-size: 29px; }
+        .result-small { font-size: 8px; letter-spacing: 0.17em; }
+        .focus-grid, .result-grid { grid-template-columns: 1fr; gap: 12px; }
+        .focus-panel { min-height: 0; padding: 18px; }
+        .section-label { font-size: 16px; }
+        .result-conclusion { font-size: 16px; }
+        .guide-heading { margin-top: 26px; }
+        .result-actions { display: grid; grid-template-columns: 1fr 1fr; }
+        .result-action-button { padding: 0 10px; font-size: 12px; }
+        .principles { display: block; padding-bottom: 72px; }
+        .principles-intro { padding-top: 25px; }
+        .principles-intro h2 { margin-top: 14px; font-size: 24px; }
+        .principles-list { grid-template-columns: 1fr; margin-top: 29px; }
+        .principle { min-height: auto; padding: 19px 0 21px; border-top: 1px solid var(--line); border-left: 0; }
+        .principle-number { float: right; }
+        .principle h3 { margin: 0 0 7px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 1ms !important; transition-duration: 1ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="一念签首页">
+          <span class="brand-mark">签</span>
+          <span class="brand-name">一念签</span>
+        </a>
+        <div class="top-meta">
+          <span class="top-chapter">金刚经 · 032</span>
+          <span class="top-note">A QUIET MOMENT OF LOOKING INWARD</span>
+        </div>
+      </header>
+
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow">今日一签 · 不问吉凶</div>
+          <h1 id="hero-title">只照见<span>当下这一念</span></h1>
+          <p class="hero-desc">心里默念一事，再摇这一签。借今日时令，读一段经典，给自己一个可实践的提醒。</p>
+          <div class="hero-rule"></div>
+          <div class="hero-aside">不是算出你的命，是看见你正在用什么心面对事情。</div>
+          <div class="hero-index">
+            <div class="hero-index-item"><small>仪式</small><strong>一念 · 一签</strong></div>
+            <div class="hero-index-item"><small>依据</small><strong>经典 · 时令</strong></div>
+            <div class="hero-index-item"><small>方式</small><strong>摇动 · 观照</strong></div>
+          </div>
+          <div class="hero-phrase"><span>一念起</span><span>观其心</span><span>行其事</span></div>
+        </div>
+
+        <div class="draw-stage" id="drawStage">
+          <div class="stage-heading">
+            <div>
+              <span class="stage-label">今日一签</span>
+              <span class="stage-subtitle">时令与此刻，皆是提醒</span>
+            </div>
+            <span class="stage-date" id="todayLabel">—</span>
+          </div>
+          <div class="ritual-steps" aria-label="摇签步骤">
+            <span class="ritual-step is-active" id="stepMind"><b>01</b>心中默念</span>
+            <span class="ritual-step" id="stepShake"><b>02</b>摇一签</span>
+            <span class="ritual-step" id="stepRead"><b>03</b>读一签</span>
+          </div>
+          <div class="day-sign-layout">
+            <div class="day-panel">
+              <div class="day-kicker">今日通书</div>
+              <div class="today-large" id="todayLarge">—</div>
+              <div class="weekday" id="weekdayLabel">—</div>
+              <div class="day-rule"></div>
+              <div class="season-mini" id="seasonMini">—</div>
+              <div class="lunar-mini">今日 · 只看这一念</div>
+              <div class="day-tags"><span class="day-tag">宜观心</span><span class="day-tag">忌急断</span></div>
+            </div>
+            <div class="sign-side">
+              <div class="sign-orbit" aria-hidden="true">
+                <div class="orbit-line"></div>
+                <div class="sign-tube" id="signTube"><span>心中默念</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="draw-prompt" id="drawPrompt">轻轻摇一摇，或左右拨动签筒</p>
+          <button class="draw-button" id="drawButton" type="button">
+            <span class="button-dot"></span>
+            <span id="buttonText">摇一摇</span>
+            <span class="button-dot"></span>
+          </button>
+        </div>
+      </section>
+
+      <section class="principles" id="meaning" aria-label="一念签的三条原则">
+        <div class="principles-intro">
+          <div class="principles-kicker">THE PRINCIPLE OF ONE SIGN</div>
+          <h2>一签，不替你决定。</h2>
+        </div>
+        <div class="principles-list">
+          <article class="principle">
+            <span class="principle-number">01</span>
+            <h3>不问吉凶</h3>
+            <p>它不预告未来，只把注意力带回今天正在发生的事。</p>
+          </article>
+          <article class="principle">
+            <span class="principle-number">02</span>
+            <h3>经典作镜</h3>
+            <p>从经文里借一个角度，照见自己正在执着什么。</p>
+          </article>
+          <article class="principle">
+            <span class="principle-number">03</span>
+            <h3>落到一行</h3>
+            <p>每一签都留一个今天能完成的小行动，不停在漂亮的话里。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="result-wrap" id="resultWrap" aria-live="polite" aria-labelledby="resultHeading">
+        <div class="result-card">
+          <div class="result-banner">
+            <div class="result-banner-left">
+              <span class="result-banner-brand">一念签</span>
+              <span class="result-banner-note">今日不问吉凶 · 只照见当下</span>
+            </div>
+            <span class="result-index" id="resultIndex">第九签</span>
+          </div>
+          <div class="result-paper">
+            <div class="result-head">
+              <div class="result-season">今日时令<strong id="resultSeason">—</strong></div>
+              <div class="result-title-wrap">
+                <span class="result-small">今日签文</span>
+                <div class="result-title" id="resultTitle">不住于相</div>
+              </div>
+              <div class="result-source-mini">经典出处<strong id="resultSource">—</strong></div>
+            </div>
+            <div class="focus-grid">
+              <div class="focus-panel is-source">
+                <div class="section-label">经典依据</div>
+                <span class="source-name">经文一隅</span>
+                <div class="source-box"><p id="resultQuote">—</p></div>
+              </div>
+              <div class="focus-panel is-observe">
+                <div class="section-label">今日观照</div>
+                <p class="result-conclusion" id="resultConclusion">—</p>
+              </div>
+            </div>
+            <div class="guide-heading" id="resultHeading">今日怎么做</div>
+            <div class="result-grid">
+              <div class="result-chip is-good"><span class="chip-label">今日宜</span><span class="chip-text" id="resultGood">—</span></div>
+              <div class="result-chip is-caution"><span class="chip-label">今日不宜</span><span class="chip-text" id="resultCaution">—</span></div>
+            </div>
+            <div class="action-line">
+              <span class="action-mark">行</span>
+              <p><strong>今日小行动</strong><br /><span id="resultAction">—</span></p>
+            </div>
+            <p class="result-footnote">此签仅作自我观照与文化体验，不构成医疗、投资、法律或其他重大决定建议。</p>
+            <div class="result-actions">
+              <button class="result-action-button" id="resultDrawButton" type="button">再摇一签</button>
+              <button class="result-action-button is-quiet" id="backTopButton" type="button">回到签筒</button>
+            </div>
+          </div>
+        </div>
+        <div class="history-panel" id="historyPanel" hidden>
+          <div class="history-heading"><span>最近观照</span><span class="history-count" id="historyCount">0 次</span></div>
+          <div class="history-list" id="historyList"></div>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="footer-time">当前时间 <span id="currentTime">—</span></div>
+        <div class="footer-title">一念签 · 经典自省与日常观照</div>
+        <p class="footer-note">本网站内容用于经典阅读、自我观照与文化体验，不构成医疗、投资、婚恋、法律或其他专业建议，请勿据此做出重大决定。</p>
+        <div class="footer-credit">© 2026 <strong>wentao</strong> · 一念签</div>
+        <div class="footer-version">VERSION 0.1.0 · 2026-08-02</div>
+      </footer>
+    </main>
+
+    <script>
+      const signs = [
+        {
+          index: "第九签",
+          title: "不住于相",
+          source: "《金刚经》",
+          quote: "若以色见我，以音声求我，是人行邪道，不能见如来。",
+          conclusion: "今天要放下的不是目标，而是必须马上得到确认的要求。",
+          good: "先做事，再等待评价",
+          caution: "用别人的一次回应否定自己",
+          action: "重要消息发出前，停三息，删掉一句不必要的解释。"
+        },
+        {
+          index: "第十七签",
+          title: "三心不可得",
+          source: "《金刚经》",
+          quote: "过去心不可得，现在心不可得，未来心不可得。",
+          conclusion: "别一次解决整个人生。今天只需要把手边的一步走稳。",
+          good: "只处理今天能处理的部分",
+          caution: "反复预演还没有发生的事",
+          action: "写下此刻最小的一步，完成它，再决定下一步。"
+        },
+        {
+          index: "第二十三签",
+          title: "法尚应舍",
+          source: "《金刚经》",
+          quote: "法尚应舍，何况非法。",
+          conclusion: "真正要坚持的不是某个答案，而是继续观察和修正的能力。",
+          good: "保留原则，放下形式",
+          caution: "因为过去有效，就拒绝调整",
+          action: "把一个已经失效的做法，改成更适合今天的版本。"
+        },
+        {
+          index: "第三十一签",
+          title: "不取于相",
+          source: "《金刚经》",
+          quote: "若菩萨有我相、人相、众生相、寿者相，即非菩萨。",
+          conclusion: "你不必急着给自己贴一个结论。一个人可以正在改变。",
+          good: "允许自己处在过渡期",
+          caution: "把一次失误变成身份判断",
+          action: "今天不说“我就是这样”，只说“我现在正在经历这个”。"
+        }
+      ];
+
+      const today = new Date();
+      const todayLabel = document.querySelector("#todayLabel");
+      const drawButton = document.querySelector("#drawButton");
+      const drawStage = document.querySelector("#drawStage");
+      const signTube = document.querySelector("#signTube");
+      const resultWrap = document.querySelector("#resultWrap");
+      const resultDrawButton = document.querySelector("#resultDrawButton");
+      const backTopButton = document.querySelector("#backTopButton");
+      const historyPanel = document.querySelector("#historyPanel");
+      const historyList = document.querySelector("#historyList");
+      const historyCount = document.querySelector("#historyCount");
+      const currentTime = document.querySelector("#currentTime");
+      const ritualSteps = [document.querySelector("#stepMind"), document.querySelector("#stepShake"), document.querySelector("#stepRead")];
+      let history = [];
+      let pointerStartX = null;
+      let currentSignIndex = null;
+
+      try {
+        const savedHistory = JSON.parse(sessionStorage.getItem("yinian-sign-history") || "[]");
+        if (Array.isArray(savedHistory)) history = savedHistory.slice(0, 5);
+      } catch (error) { /* private browsing can disable session storage */ }
+
+      todayLabel.textContent = `${today.getMonth() + 1}月${today.getDate()}日`;
+      document.querySelector("#todayLarge").textContent = `${today.getMonth() + 1}月${today.getDate()}日`;
+      document.querySelector("#weekdayLabel").textContent = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"][today.getDay()];
+
+      function updateClock() {
+        const now = new Date();
+        const pad = (value) => String(value).padStart(2, "0");
+        currentTime.textContent = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      }
+
+      updateClock();
+      window.setInterval(updateClock, 1000);
+
+      function seasonText(month) {
+        if ([2, 3, 4].includes(month)) return "春日 · 宜生发";
+        if ([5, 6, 7].includes(month)) return "夏日 · 宜收心";
+        if ([8, 9, 10].includes(month)) return "秋日 · 宜收敛";
+        return "冬日 · 宜藏养";
+      }
+
+      document.querySelector("#seasonMini").textContent = seasonText(today.getMonth() + 1);
+
+      function chooseSign() {
+        const values = new Uint32Array(1);
+        crypto.getRandomValues(values);
+        let nextIndex = values[0] % signs.length;
+        if (currentSignIndex !== null && signs.length > 1 && nextIndex === currentSignIndex) {
+          nextIndex = (nextIndex + 1 + (values[0] % (signs.length - 1))) % signs.length;
+        }
+        return nextIndex;
+      }
+
+      function setRitualStep(activeIndex) {
+        ritualSteps.forEach((step, index) => {
+          step.classList.toggle("is-active", index === activeIndex);
+          step.classList.toggle("is-done", index < activeIndex);
+        });
+      }
+
+      function renderHistory() {
+        if (!history.length) {
+          historyPanel.hidden = true;
+          return;
+        }
+        historyPanel.hidden = false;
+        historyCount.textContent = `${history.length} 次`;
+        historyList.replaceChildren();
+        history.forEach((entry) => {
+          const item = document.createElement("button");
+          item.className = "history-item";
+          item.type = "button";
+          item.innerHTML = `<small>${entry.index}</small>${entry.title}`;
+          item.addEventListener("click", () => showResult(entry.signIndex));
+          historyList.appendChild(item);
+        });
+      }
+
+      function rememberSign(signIndex) {
+        const sign = signs[signIndex];
+        history = [{ signIndex, title: sign.title, index: sign.index }, ...history.filter((entry) => entry.signIndex !== signIndex)].slice(0, 5);
+        try { sessionStorage.setItem("yinian-sign-history", JSON.stringify(history)); } catch (error) { /* keep the interaction usable */ }
+        renderHistory();
+      }
+
+      function showResult(signIndex, shouldScroll = true) {
+        const sign = signs[signIndex];
+        currentSignIndex = signIndex;
+        document.querySelector("#resultTitle").textContent = sign.title;
+        document.querySelector("#resultIndex").textContent = sign.index;
+        document.querySelector("#resultSource").textContent = sign.source;
+        document.querySelector("#resultSeason").textContent = seasonText(today.getMonth() + 1);
+        document.querySelector("#resultQuote").textContent = sign.quote;
+        document.querySelector("#resultConclusion").textContent = sign.conclusion;
+        document.querySelector("#resultGood").textContent = sign.good;
+        document.querySelector("#resultCaution").textContent = sign.caution;
+        document.querySelector("#resultAction").textContent = sign.action;
+        resultWrap.classList.add("is-visible");
+        setRitualStep(2);
+        if (shouldScroll) resultWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function draw() {
+        if (drawButton.disabled) return;
+        const signIndex = chooseSign();
+        drawStage.classList.add("is-shaking");
+        resultWrap.classList.add("is-refreshing");
+        drawButton.disabled = true;
+        setRitualStep(1);
+        document.querySelector("#buttonText").textContent = "正在取签";
+        document.querySelector("#drawPrompt").textContent = "这一签，不替你决定，只陪你看清";
+        window.setTimeout(() => {
+          drawStage.classList.remove("is-shaking");
+          document.querySelector("#buttonText").textContent = "再摇一签";
+          document.querySelector("#drawPrompt").textContent = "点击按钮，或左右拨动签筒，再取一签";
+          drawButton.disabled = false;
+          rememberSign(signIndex);
+          resultWrap.classList.remove("is-refreshing");
+          showResult(signIndex);
+        }, 760);
+      }
+
+      drawButton.addEventListener("click", draw);
+      resultDrawButton.addEventListener("click", draw);
+      backTopButton.addEventListener("click", () => {
+        drawStage.scrollIntoView({ behavior: "smooth", block: "center" });
+        window.setTimeout(() => drawButton.focus(), 450);
+      });
+
+      signTube.addEventListener("pointerdown", (event) => {
+        pointerStartX = event.clientX;
+        signTube.setPointerCapture(event.pointerId);
+      });
+      signTube.addEventListener("pointermove", (event) => {
+        if (pointerStartX === null || drawButton.disabled) return;
+        if (Math.abs(event.clientX - pointerStartX) > 42) {
+          pointerStartX = null;
+          draw();
+        }
+      });
+      signTube.addEventListener("pointerup", () => { pointerStartX = null; });
+      signTube.addEventListener("pointercancel", () => { pointerStartX = null; });
+
+      renderHistory();
+    </script>
+  </body>
+</html>
