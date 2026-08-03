@@ -56,30 +56,42 @@
 
       .site-shell { width: min(1280px, calc(100% - 64px)); margin: 0 auto; }
       .topbar {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 30px 0 23px;
+        min-height: 78px;
+        padding: 20px 0 17px;
         border-bottom: 1px solid var(--line);
       }
-      .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+      .topbar::after { position: absolute; right: 0; bottom: -1px; left: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(152, 54, 46, 0.5) 18%, rgba(193, 160, 107, 0.3) 78%, transparent); content: ""; }
+      .brand { display: inline-flex; align-items: center; gap: 14px; color: var(--ink); text-decoration: none; }
       .brand-mark {
         display: grid;
-        width: 38px;
-        height: 38px;
+        position: relative;
+        width: 45px;
+        height: 45px;
         place-items: center;
-        color: var(--paper);
-        background: var(--cinnabar);
-        border-radius: 2px;
+        color: var(--cinnabar);
+        background: rgba(255, 252, 245, 0.35);
+        border: 1px solid currentColor;
+        border-radius: 50%;
         font-family: var(--serif);
-        font-size: 14px;
+        font-size: 0;
         letter-spacing: 0.08em;
-        box-shadow: 4px 4px 0 rgba(152, 54, 46, 0.17);
+        box-shadow: inset 0 0 0 3px rgba(193, 160, 107, 0.16);
       }
-      .brand-name { font-family: var(--serif); font-size: 19px; letter-spacing: 0.2em; }
-      .top-meta { display: flex; align-items: center; gap: 22px; }
-      .top-chapter { color: var(--cinnabar); font-family: var(--serif); font-size: 12px; letter-spacing: 0.14em; }
-      .top-note { color: var(--muted); font-size: 10px; letter-spacing: 0.2em; }
+      .brand-mark::before { content: "今"; font-family: var(--serif); font-size: 17px; }
+      .brand-mark::after { position: absolute; top: 6px; bottom: 6px; left: 50%; width: 1px; background: currentColor; content: ""; opacity: 0.55; }
+      .brand-copy { display: grid; gap: 4px; }
+      .brand-name { font-family: var(--serif); font-size: 20px; letter-spacing: 0.18em; }
+      .brand-tagline { color: var(--muted); font-size: 9px; letter-spacing: 0.2em; }
+      .top-meta { display: flex; align-items: center; gap: 31px; }
+      .top-nav { display: flex; align-items: center; gap: clamp(20px, 3vw, 38px); }
+      .top-nav a { position: relative; padding: 9px 0; color: var(--ink); font-family: var(--serif); font-size: 12px; letter-spacing: 0.12em; text-decoration: none; }
+      .top-nav a::after { position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: var(--cinnabar); content: ""; transform: scaleX(0); transform-origin: right; transition: transform 180ms ease; }
+      .top-nav a:hover::after, .top-nav a.is-current::after { transform: scaleX(1); transform-origin: left; }
+      .top-nav-end { width: 48px; height: 1px; background: linear-gradient(90deg, var(--cinnabar) 0 38%, var(--gold) 38%); }
 
       .hero {
         display: grid;
@@ -88,10 +100,11 @@
         align-items: center;
         gap: clamp(55px, 8vw, 145px);
         min-height: 710px;
-        padding: 92px 0 108px;
+        padding: 80px 0 108px;
       }
       .hero::before { position: absolute; right: -30px; bottom: 0; color: rgba(152, 54, 46, 0.045); content: "觀"; font-family: var(--serif); font-size: clamp(210px, 26vw, 370px); line-height: 0.8; pointer-events: none; }
-      .hero-copy { position: relative; z-index: 1; max-width: 570px; }
+      .hero::after { position: absolute; bottom: 28px; left: -120px; width: 360px; height: 185px; background: linear-gradient(160deg, rgba(193, 160, 107, 0.04), rgba(152, 54, 46, 0.12)); clip-path: polygon(0 83%, 12% 65%, 23% 75%, 38% 39%, 51% 69%, 66% 27%, 79% 68%, 91% 47%, 100% 77%, 100% 100%, 0 100%); content: ""; opacity: 0.72; pointer-events: none; }
+      .hero-copy, .draw-stage { position: relative; z-index: 1; }
       .eyebrow { display: inline-flex; align-items: center; gap: 12px; color: var(--cinnabar); font-size: 11px; font-weight: 600; letter-spacing: 0.3em; }
       .eyebrow::before { width: 34px; height: 1px; background: var(--cinnabar); content: ""; }
       h1 {
@@ -313,18 +326,22 @@
         .topbar {
           margin: 0;
           padding: calc(18px + env(safe-area-inset-top)) 20px 18px;
-          color: var(--paper);
-          background: #2b241e;
-          border-bottom: 0;
+          color: var(--ink);
+          background: rgba(250, 247, 240, 0.72);
+          border-bottom: 1px solid rgba(86, 68, 40, 0.12);
         }
-        .brand { color: var(--paper); gap: 10px; }
-        .brand-mark { width: 34px; height: 34px; color: var(--paper); background: var(--cinnabar); border-radius: 50%; box-shadow: none; font-size: 13px; }
+        .brand { color: var(--ink); gap: 10px; }
+        .brand-mark { width: 36px; height: 36px; color: var(--cinnabar); background: transparent; box-shadow: inset 0 0 0 2px rgba(193, 160, 107, 0.14); }
+        .brand-mark::before { font-size: 14px; }
+        .brand-mark::after { top: 5px; bottom: 5px; }
+        .brand-copy { gap: 2px; }
         .brand-name { font-size: 18px; letter-spacing: 0.14em; }
+        .brand-tagline { font-size: 8px; letter-spacing: 0.12em; }
         .top-meta { gap: 0; }
-        .top-chapter { color: #d9bf8d; font-size: 10px; letter-spacing: 0.12em; }
-        .top-chapter::before { content: "今日 · "; color: rgba(244, 240, 231, 0.58); }
+        .top-nav { display: none; }
         .hero { display: flex; flex-direction: column; gap: 0; min-height: 0; padding: 24px 0 34px; }
         .hero::before { right: -34px; bottom: 8px; font-size: 190px; opacity: 0.5; }
+        .hero::after { bottom: 22px; left: -90px; width: 260px; height: 125px; opacity: 0.45; }
         .hero-copy { order: 1; max-width: none; padding: 0 20px 17px; text-align: left; }
         .eyebrow { gap: 9px; font-size: 10px; letter-spacing: 0.2em; }
         .eyebrow::before { width: 23px; }
@@ -458,11 +475,18 @@
       <header class="topbar">
         <a class="brand" href="#top" aria-label="一念签首页">
           <span class="brand-mark">签</span>
-          <span class="brand-name">一念签</span>
+          <span class="brand-copy">
+            <span class="brand-name">一念签</span>
+            <span class="brand-tagline">心有所向 · 自有答案</span>
+          </span>
         </a>
         <div class="top-meta">
-          <span class="top-chapter">金刚经 · 032</span>
-          <span class="top-note">A QUIET MOMENT OF LOOKING INWARD</span>
+          <nav class="top-nav" aria-label="页面导航">
+            <a class="is-current" href="#top">一念起</a>
+            <a href="#meaning">观其心</a>
+            <a href="#drawStage">行其事</a>
+            <span class="top-nav-end" aria-hidden="true"></span>
+          </nav>
         </div>
       </header>
 
