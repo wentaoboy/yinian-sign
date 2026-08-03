@@ -183,7 +183,8 @@
       .result-wrap { display: none; padding: 0 0 112px; }
       .result-wrap.is-visible { display: block; animation: reveal 850ms var(--ease) both; }
       .result-wrap.is-refreshing .result-card { opacity: 0.52; transform: translateY(4px); transition: opacity 180ms ease, transform 180ms ease; }
-      @keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+      /* 结果出现时只做淡入，不改变锚点位置，避免 scrollIntoView 后顶部被动画带出视口。 */
+      @keyframes reveal { from { opacity: 0; } to { opacity: 1; } }
       .result-card { overflow: hidden; border: 1px solid rgba(180, 153, 107, 0.5); border-radius: 18px; background: #fbf8f0; box-shadow: 0 28px 78px rgba(71, 54, 28, 0.15); }
       .result-banner { position: relative; display: flex; align-items: center; justify-content: space-between; min-height: 84px; padding: 0 clamp(28px, 5vw, 62px); overflow: hidden; color: var(--paper); background: linear-gradient(105deg, #70221d 0%, #8f2f28 54%, #a33c31 100%); border-radius: 18px 18px 0 0; box-shadow: inset 0 -4px 0 rgba(63, 20, 17, 0.2); }
       .result-banner::before { position: absolute; inset: 0; background: radial-gradient(circle at 72% 30%, rgba(255, 224, 173, 0.14), transparent 31%), linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04)); content: ""; }
@@ -278,6 +279,50 @@
         .orbit-line { width: 185px; height: 185px; }
         .sign-tube { width: 64px; height: 158px; }
         .principles { padding-bottom: 46px; }
+
+        /* 结果卡：收成一张可一屏读完的签笺，重点靠层级而不是堆高度。 */
+        .result-wrap { padding-bottom: 54px; }
+        .result-card { border-radius: 14px; box-shadow: 0 24px 58px rgba(71, 54, 28, 0.14); }
+        .result-banner { min-height: 58px; padding: 0 34px; border-radius: 14px 14px 0 0; }
+        .result-banner-bamboo { width: 170px; height: 62px; opacity: 0.62; }
+        .result-banner-left { gap: 15px; }
+        .result-banner-brand { font-size: 18px; letter-spacing: 0.2em; }
+        .result-banner-note { font-size: 9px; letter-spacing: 0.16em; }
+        .result-index { padding: 5px 10px; border: 1px solid rgba(244, 240, 231, 0.3); border-radius: 999px; font-size: 11px; }
+        .result-paper { padding: 25px 40px 24px; border-radius: 0 0 14px 14px; }
+        .result-paper::before { inset: 10px; border-radius: 8px; }
+        .result-paper::after { inset: 16px; border-radius: 6px; }
+        .result-mountain.is-left { width: 125px; opacity: 0.65; }
+        .result-mountain.is-right { width: 190px; opacity: 0.65; }
+        .result-head { grid-template-columns: 0.75fr 1.5fr 0.75fr; gap: 16px; min-height: 94px; padding-bottom: 18px; }
+        .result-season, .result-source-mini { font-size: 9px; line-height: 1.6; }
+        .result-season strong { margin-top: 5px; font-size: 16px; }
+        .result-small { font-size: 9px; letter-spacing: 0.23em; }
+        .result-title { margin-top: 7px; font-size: clamp(34px, 4vw, 49px); letter-spacing: 0.1em; }
+        .result-source-mini strong { margin-top: 5px; font-size: 15px; }
+        .focus-grid { gap: 14px; margin-top: 18px; }
+        .focus-panel { min-height: 124px; padding: 17px 20px; border-radius: 10px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45); }
+        .section-label { grid-template-columns: 42px minmax(0, 1fr); gap: 12px; min-height: 42px; font-size: 17px; letter-spacing: 0.1em; }
+        .icon-badge, .chip-label .icon-badge { width: 42px; height: 42px; font-size: 22px; }
+        .icon-badge svg { width: 24px; height: 24px; }
+        .source-name { margin: 8px 0 8px; padding-bottom: 8px; font-size: 12px; }
+        .source-box p, .result-conclusion { font-size: 13px; line-height: 1.65; }
+        .result-conclusion { margin-top: 10px; }
+        .guide-heading { gap: 10px; margin: 20px 0 11px; font-size: 17px; }
+        .guide-mark { width: 32px; height: 23px; }
+        .result-grid { gap: 14px; }
+        .result-chip { min-height: 80px; padding: 12px 18px; border-radius: 10px; }
+        .chip-watermark { height: 68px; opacity: 0.58; }
+        .chip-label { grid-template-columns: 42px auto; gap: 12px; min-height: 42px; margin-bottom: 5px; font-size: 17px; letter-spacing: 0.1em; }
+        .chip-text { font-size: 13px; line-height: 1.5; }
+        .action-line { gap: 13px; min-height: 66px; margin-top: 12px; padding: 9px 18px; border-radius: 10px; }
+        .action-landscape { width: 190px; height: 58px; opacity: 0.68; }
+        .action-mark { width: 46px; height: 48px; border-radius: 6px; font-size: 23px; }
+        .action-line p { max-width: calc(100% - 60px); font-size: 13px; line-height: 1.45; }
+        .action-line strong { font-size: 15px; letter-spacing: 0.1em; }
+        .result-footnote { margin-top: 12px; font-size: 9px; line-height: 1.45; }
+        .result-actions { gap: 8px; margin-top: 13px; }
+        .result-action-button { min-height: 40px; padding: 0 18px; font-size: 13px; }
       }
 
       /* 短桌面视口（含浏览器工具栏后的常见 720px 高度）也不截断原则区。 */
