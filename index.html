@@ -67,7 +67,7 @@
       }
       .topbar::after { position: absolute; right: 0; bottom: -1px; left: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(152, 54, 46, 0.5) 18%, rgba(193, 160, 107, 0.3) 78%, transparent); content: ""; }
       .brand { display: inline-flex; align-items: center; gap: 14px; color: var(--ink); text-decoration: none; }
-      .brand-mark { display: block; width: 45px; height: 45px; object-fit: contain; mix-blend-mode: multiply; }
+      .brand-mark { display: block; width: 45px; height: 45px; object-fit: contain; }
       .brand-copy { display: grid; gap: 4px; }
       .brand-name { font-family: var(--serif); font-size: 20px; letter-spacing: 0.18em; }
       .brand-tagline { color: var(--muted); font-size: 9px; letter-spacing: 0.2em; }
@@ -262,6 +262,75 @@
       .footer-credit strong { color: var(--cinnabar); font-weight: 500; }
       .footer-version { margin-top: 10px; color: var(--faint); font-size: 10px; letter-spacing: 0.22em; }
       .mobile-bottom-nav { display: none; }
+
+      /* 桌面首屏按视口收束：主视觉和三条原则在同一屏完整落位。 */
+      @media (min-width: 761px) {
+        .topbar { min-height: 70px; padding: 16px 0 14px; }
+        .hero {
+          height: min(610px, calc(100vh - 270px));
+          min-height: 560px;
+          padding: 36px 0 50px;
+        }
+        .draw-stage { min-height: 0; padding: 34px 38px 28px; }
+        .day-sign-layout { min-height: 255px; }
+        .day-panel { min-height: 218px; padding: 22px 14px 16px; }
+        .sign-orbit { min-height: 225px; }
+        .orbit-line { width: 185px; height: 185px; }
+        .sign-tube { width: 64px; height: 158px; }
+        .principles { padding-bottom: 46px; }
+      }
+
+      /* 短桌面视口（含浏览器工具栏后的常见 720px 高度）也不截断原则区。 */
+      @media (min-width: 761px) and (max-height: 820px) {
+        .topbar { min-height: 64px; padding: 12px 0 11px; }
+        .brand-mark { width: 40px; height: 40px; }
+        .brand-name { font-size: 18px; }
+        .hero {
+          height: 390px;
+          min-height: 390px;
+          gap: 32px;
+          padding: 20px 0 22px;
+        }
+        h1 { margin: 18px 0 15px; font-size: clamp(46px, 5.4vw, 70px); }
+        .hero-desc { max-width: 390px; font-size: 14px; line-height: 1.8; }
+        .hero-rule { width: 100px; margin: 18px 0 11px; }
+        .hero-aside { font-size: 10px; }
+        .hero-index { margin-top: 20px; }
+        .hero-index-item { padding-top: 10px; }
+        .hero-index-item strong { margin-top: 6px; font-size: 13px; }
+        .hero-phrase { display: none; }
+        .draw-stage { padding: 14px 27px 0; }
+        .stage-label { font-size: 12px; }
+        .stage-subtitle { margin-top: 4px; font-size: 9px; }
+        .stage-date { font-size: 10px; }
+        .ritual-steps { gap: 11px; margin-top: 15px; padding-top: 9px; }
+        .ritual-step { gap: 5px; font-size: 8px; }
+        .ritual-step b { font-size: 10px; }
+        .day-sign-layout { min-height: 145px; margin-top: 4px; }
+        .day-panel { min-height: 135px; padding: 11px 10px 8px; }
+        .day-kicker { font-size: 10px; }
+        .today-large { margin-top: 8px; font-size: 27px; }
+        .weekday { margin-top: 6px; font-size: 11px; }
+        .day-rule { margin: 10px auto 8px; }
+        .season-mini { font-size: 12px; }
+        .lunar-mini { margin-top: 4px; font-size: 9px; }
+        .day-tags { margin-top: 10px; }
+        .day-tag { padding: 4px 6px; font-size: 9px; }
+        .sign-orbit { min-height: 140px; }
+        .orbit-line { width: 124px; height: 124px; }
+        .sign-tube { width: 49px; height: 116px; }
+        .sign-tube::before { width: 57px; height: 13px; }
+        .sign-tube span { font-size: 16px; }
+        .draw-prompt { margin: 0 0 9px; font-size: 10px; }
+        .draw-button { min-height: 38px; font-size: 13px; }
+        .principles { padding-bottom: 28px; }
+        .principles-intro { padding-top: 18px; }
+        .principles-intro h2 { margin-top: 10px; font-size: 23px; }
+        .principle { min-height: 150px; padding-top: 22px; }
+        .principle h3 { margin-top: 17px; font-size: 16px; }
+        .principle p { font-size: 11px; line-height: 1.7; }
+      }
+
       @media (max-width: 760px) {
         .site-shell { width: min(100% - 28px, 580px); }
         .topbar { padding: 20px 0; }
@@ -469,7 +538,7 @@
     <main class="site-shell">
       <header class="topbar">
         <a class="brand" href="#top" aria-label="一念签首页">
-          <img class="brand-mark" src="assets/home/logo-mark.png" alt="一念签徽记" />
+          <img class="brand-mark" src="assets/home/logo-mark.svg" alt="一念签徽记" />
           <span class="brand-copy">
             <span class="brand-name">一念签</span>
             <span class="brand-tagline">心有所向 · 自有答案</span>

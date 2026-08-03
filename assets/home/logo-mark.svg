@@ -1,0 +1,9 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="一念签徽记">
+  <circle cx="64" cy="64" r="53" stroke="#C84B3F" stroke-width="1.6"/>
+  <circle cx="64" cy="64" r="48" stroke="#C84B3F" stroke-width="1.2"/>
+  <path d="M64 25C61 40 54 47 41 52C51 53 58 51 64 45C70 51 77 53 87 52C74 47 67 40 64 25Z" fill="#C84B3F"/>
+  <path d="M56 54C60 56 68 56 72 54C70 60 67 64 64 66C61 64 58 60 56 54Z" fill="#C84B3F"/>
+  <path d="M64 62V96" stroke="#C84B3F" stroke-width="2.1" stroke-linecap="round"/>
+  <path d="M64 72C53 70 42 70 31 77C45 74 55 78 64 87C73 78 83 74 97 77C86 70 75 70 64 72Z" fill="#C84B3F"/>
+  <path d="M64 78L69 83L64 88L59 83L64 78Z" fill="#F4E9D8" stroke="#C84B3F" stroke-width="1"/>
+</svg>
